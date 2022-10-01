@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:CourseHw2"
+             x:Class="CourseHw2.MainPage"
+             BackgroundColor="#faf8ef">
+
+    <ContentPage.BindingContext>
+        <local:PuzzleViewModel PuzzleOvered="ShowScore" />
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout VerticalOptions="Center"
+                         Spacing="50"
+                         WidthRequest="450">
+
+        <HorizontalStackLayout Spacing="50">
+            <Label WidthRequest="300"
+                   TextColor="#776e65"
+                   FontSize="70"
+                   FontAttributes="Bold">
+                2048
+            </Label>
+            <VerticalStackLayout Spacing="10">
+                <Border BackgroundColor="#bbada0"
+                        StrokeThickness="0"
+                        Padding="5">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5" />
+                    </Border.StrokeShape>
+                    <VerticalStackLayout>
+                        <Label FontSize="10"
+                               TextColor="White"
+                               HorizontalTextAlignment="End"
+                               Text="得分" />
+                        <Label FontSize="16"
+                               TextColor="White"
+                               WidthRequest="80"
+                               HorizontalTextAlignment="End"
+                               Text="{Binding Score}" />
+                    </VerticalStackLayout>
+                </Border>
+                <Button WidthRequest="100"
+                        Text="新游戏"
+                        BackgroundColor="#8f7a66"
+                        TextColor="#f9f6f2"
+                        Command="{Binding RestoreCommand}" />
+            </VerticalStackLayout>
+        </HorizontalStackLayout>
+
+        <Border BackgroundColor="#bbada0"
+                StrokeThickness="0"
+                WidthRequest="450">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10" />
+            </Border.StrokeShape>
+            <Border.GestureRecognizers>
+                <SwipeGestureRecognizer Direction="Up"
+                                        Swiped="OnSwiped" />
+                <SwipeGestureRecognizer Direction="Left"
+                                        Swiped="OnSwiped" />
+                <SwipeGestureRecognizer Direction="Right"
+                                        Swiped="OnSwiped" />
+                <SwipeGestureRecognizer Direction="Down"
+                                        Swiped="OnSwiped" />
+            </Border.GestureRecognizers>
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Tiles}"
+                                 Padding="0,10"
+                                 Spacing="10">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout BindableLayout.ItemsSource="{Binding}"
+                                               HeightRequest="100"
+                                               Margin="10,0"
+                                               Spacing="10">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BackgroundColor="{Binding BackgroundColor}"
+                                            HeightRequest="100"
+                                            WidthRequest="100"
+                                            StrokeThickness="0">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="10" />
+                                        </Border.StrokeShape>
+                                        <Label Text="{Binding Text}"
+                                               TextColor="{Binding TextColor}"
+                                               HorizontalTextAlignment="Center"
+                                               VerticalTextAlignment="Center"
+                                               FontSize="{Binding FontSize}"
+                                               FontAttributes="Bold"
+                                               HeightRequest="70"
+                                               WidthRequest="70" />
+                                    </Border>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+        </Border>
+
+    </VerticalStackLayout>
+
+</ContentPage>
